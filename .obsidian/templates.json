@@ -1,0 +1,5 @@
+{
+  "timeFormat": "HH\\hMM\\m\\\\ss\\s",
+  "dateFormat": "YYYY-MM-DD[T]HH:mm:ssZ",
+  "folder": "99-configs"
+}
