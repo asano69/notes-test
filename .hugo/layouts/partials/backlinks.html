@@ -1,0 +1,23 @@
+{{- $currentPage := . -}}
+{{- $backlinks := slice -}}
+
+{{- range .Site.RegularPages -}}
+  {{- $page := . -}}
+  {{- if and (ne $page.RelPermalink $currentPage.RelPermalink)
+             (strings.Contains $page.RawContent $currentPage.RelPermalink) -}}
+    {{- $backlinks = $backlinks | append $page -}}
+  {{- end -}}
+{{- end -}}
+
+
+
+{{- with $backlinks -}}
+<div class="backlinks">
+  <h3>Backlinks</h3>
+  <ul>
+    {{- range . -}}
+    <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+    {{- end -}}
+  </ul>
+</div>
+{{- end -}}

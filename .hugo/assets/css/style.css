@@ -1,0 +1,175 @@
+body {
+  background-color: linen;
+  color: #272822;
+  font-family: serif;
+}
+
+p {
+    font-size: 1rem;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem 2%;
+  box-sizing: border-box;
+}
+
+header nav {
+  display: flex;
+  gap: 2rem;
+}
+
+main {
+  margin: 0 8% 8%;
+}
+
+.card-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;  /* vertical stack */
+  margin-bottom: 1.5rem;
+}
+
+
+.card-title a {
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: inherit;
+}
+.card-title a:hover {
+  text-decoration: underline;
+}
+
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  gap: 0.4rem;
+}
+
+.card-tags {
+  display: flex;
+  gap: 0.4rem;
+}
+
+
+.card-summary {
+  font-size: 1rem;
+}
+
+
+.tag {
+  font-size: 0.9rem;
+  padding: 0.1rem 0.45rem;
+  border-radius: 3px;
+  background: #f5f5f5;
+  color: #666;
+  text-decoration: none;
+}
+
+/*--------------------------*/
+/* Code blocks */
+pre {
+    padding: 1rem 1.25rem;
+    border-radius: 6px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+    font-size: 0.95rem
+}
+
+/* Inline code (outside of pre) */
+:not(pre) > code {
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    background: rgba(128, 128, 128, 0.15);
+}
+
+
+/*--------------------------*/
+img {
+  max-width: min(100%, 720px);
+  height: auto;
+  display: block;
+  margin-inline: auto; /* center horizontally */
+}
+
+
+/*--------------------------*/
+
+.page-wrapper {
+  display: flex;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.content {
+  flex: 1;
+  min-width: 0; /* prevents overflow */
+}
+
+.toc-sidebar {
+  width: 150px;
+  flex-shrink: 0;
+}
+
+/* Sticky so it follows scroll */
+.toc {
+  position: sticky;
+  top: 1rem;
+}
+
+.toc-title {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+/* Hugo generates <nav><ul><li><a> structure */
+.toc ul {
+  list-style: none;
+  padding-left: 1rem;
+  margin: 0;
+}
+
+.toc a {
+  font-size: 0.85rem;
+  color: #666;
+  text-decoration: none;
+  display: block;
+  padding: 2px 0;
+}
+
+.toc a:hover {
+  color: #000;
+}
+
+
+
+/*--------------------------*/
+@media (prefers-color-scheme: dark) {
+  html {
+    filter: invert(1) hue-rotate(180deg);
+  }
+
+  /* Images and videos are double-inverted to restore original colors */
+  img, video, iframe {
+    filter: invert(1) hue-rotate(180deg);
+  }
+}
+
+
+

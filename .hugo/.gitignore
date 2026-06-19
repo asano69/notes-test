@@ -1,0 +1,7 @@
+.direnv/
+public/
+
+
+.hugo_build.lock
+
+.obsidian/workspace.json
