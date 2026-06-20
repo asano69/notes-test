@@ -2,7 +2,7 @@ body {
   margin: 0;
   background-color: linen;
   color: #272822;
-  font-family: "IBM Plex Sans JP",sans-serif;
+  font-family: "IBM Plex Sans JP", sans-serif;
 
   /* Page layout: header spans full width on top,
      sidebar and main sit side by side below. */
@@ -39,7 +39,7 @@ header nav {
 
 main {
   grid-area: main;
-  margin: 0 4% 8%; /* was 0 8% 8% */
+  margin: 0 2% 4%; */ /* was 0 8% 8% */
   min-width: 0; /* allow the grid track to shrink so wide content scrolls instead of overflowing */
 }
 
@@ -116,7 +116,6 @@ main {
 .card {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1.5rem;
 }
 
 .card-title a {
@@ -134,7 +133,7 @@ main {
   display: flex;
   align-items: center;
   font-size: 0.9rem;
-  gap: 0.4rem;
+ /* gap: 0.4rem; */
 }
 
 .card-tags {
