@@ -33,12 +33,12 @@ header nav {
   display: flex;
   gap: 2rem;
 }
+
 main {
   grid-area: main;
   margin: 0 8% 8%;
   min-width: 0; /* allow the grid track to shrink so wide content scrolls instead of overflowing the page */
 }
-
 /*--------------------------*/
 /* Sidebar */
 
@@ -209,27 +209,27 @@ img {
   display: block;
   margin-inline: auto; /* center horizontally */
 }
-
-
-/*--------------------------*/
-
 .page-wrapper {
-  display: flex;
-  gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
 }
 
 .content {
-  flex: 1;
   min-width: 0; /* prevents overflow */
 }
 
+/* Outline: inline, right after the summary (mobile default) */
 .toc-sidebar {
-  width: 150px;
-  flex-shrink: 0;
+  margin: 1.5rem 0;
 }
 
+.toc-title {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+/*--------------------------*/
 /* Sticky so it follows scroll */
 .toc {
   position: sticky;
@@ -274,3 +274,30 @@ img {
     filter: invert(1) hue-rotate(180deg);
   }
 }
+
+@media (min-width: 768px) {
+  main {
+    margin: 0 8% 8%;
+  }
+
+  /* Outline: floats to the right of the article body */
+  .toc-sidebar {
+    float: right;
+    width: 150px;
+    margin: 0 0 1rem 2rem;
+  }
+
+  /* Sticky so it follows scroll */
+  .toc {
+    position: sticky;
+    top: 1rem;
+  }
+
+  /* Contain the floated outline so the article doesn't collapse around it */
+  .content::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
