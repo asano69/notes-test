@@ -6,7 +6,7 @@ body {
   /* Page layout: header spans full width on top,
      sidebar and main sit side by side below. */
   display: grid;
-  grid-template-columns: 240px 1fr;
+  grid-template-columns: 240px 1fr; /*Sidebar*/
   grid-template-rows: auto 1fr;
   grid-template-areas:
     "header header"
@@ -31,7 +31,7 @@ header {
 
 header nav {
   display: flex;
-  gap: 2rem;
+  gap: 3rem;
   align-items: center;
 }
 
