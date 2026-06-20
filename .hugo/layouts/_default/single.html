@@ -5,17 +5,16 @@
     {{- with .Params.summary }}
     <p class="summary" data-pagefind-weight="5">{{ . }}</p>
     {{- end }}
-    {{ if .TableOfContents }}
-    <aside class="toc-sidebar">
-      <nav class="toc">
-        <h2 class="toc-title">Outline</h2>
-        {{ .TableOfContents }}
-      </nav>
-    </aside>
-    {{ end }}
     {{ .Content }}
     {{ partial "backlinks.html" . }}
   </article>
+  {{ if .TableOfContents }}
+  <aside class="toc-sidebar">
+    <nav class="toc">
+      <h2 class="toc-title">Outline</h2>
+      {{ .TableOfContents }}
+    </nav>
+  </aside>
+  {{ end }}
 </div>
-
 {{ end }}

@@ -3,8 +3,8 @@ body {
   color: #272822;
   font-family: serif;
 
-  /* Page layout: header spans the full width on top,
-     sidebar and main content sit side by side below it. */
+  /* Page layout: header spans full width on top,
+     sidebar and main sit side by side below. */
   display: grid;
   grid-template-columns: 240px 1fr;
   grid-template-rows: auto 1fr;
@@ -16,7 +16,7 @@ body {
 }
 
 p {
-    font-size: 1rem;
+  font-size: 1rem;
 }
 
 header {
@@ -32,20 +32,21 @@ header {
 header nav {
   display: flex;
   gap: 2rem;
+  align-items: center;
 }
 
 main {
   grid-area: main;
   margin: 0 8% 8%;
-  min-width: 0; /* allow the grid track to shrink so wide content scrolls instead of overflowing the page */
+  min-width: 0; /* allow the grid track to shrink so wide content scrolls instead of overflowing */
 }
+
 /*--------------------------*/
 /* Sidebar */
 
 .sidebar {
   grid-area: sidebar;
   background: #f5f5f5;
-  /* Stay visible while the main content scrolls past it */
   position: sticky;
   top: 0;
   align-self: start;
@@ -53,7 +54,6 @@ main {
   overflow-y: auto;
 }
 
-/* Row 1: site title and the nav toggle button */
 .sidebar-header {
   display: flex;
   align-items: center;
@@ -70,25 +70,13 @@ main {
 
 .sidebar-toggle {
   cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  padding: 0;
+  line-height: 1;
 }
 
-/* Collapsed state: shrink the sidebar column down to just the toggle
-   button, hiding the title and section list. */
-body.sidebar-collapsed {
-  grid-template-columns: 3rem 1fr;
-}
-
-body.sidebar-collapsed .sidebar-title,
-body.sidebar-collapsed .sidebar-nav {
-  display: none;
-}
-
-body.sidebar-collapsed .sidebar-header {
-  padding: 0.5rem;
-  justify-content: center;
-}
-
-/* Row 2+: section navigation */
 .sidebar-nav ul {
   list-style: none;
   margin: 0;
@@ -113,6 +101,9 @@ body.sidebar-collapsed .sidebar-header {
   cursor: pointer;
 }
 
+/*--------------------------*/
+/* Card list */
+
 .card-list {
   list-style: none;
   padding: 0;
@@ -121,10 +112,9 @@ body.sidebar-collapsed .sidebar-header {
 
 .card {
   display: flex;
-  flex-direction: column;  /* vertical stack */
+  flex-direction: column;
   margin-bottom: 1.5rem;
 }
-
 
 .card-title a {
   font-size: 1.25rem;
@@ -132,10 +122,10 @@ body.sidebar-collapsed .sidebar-header {
   text-decoration: none;
   color: inherit;
 }
+
 .card-title a:hover {
   text-decoration: underline;
 }
-
 
 .card-meta {
   display: flex;
@@ -149,11 +139,9 @@ body.sidebar-collapsed .sidebar-header {
   gap: 0.4rem;
 }
 
-
 .card-summary {
   font-size: 1rem;
 }
-
 
 .tag {
   font-size: 0.9rem;
@@ -166,12 +154,14 @@ body.sidebar-collapsed .sidebar-header {
 
 /*--------------------------*/
 /* Code blocks */
+
 pre {
-    position: relative; /* anchor point for the copy button */
-    padding: 1rem 1.25rem;
-    border-radius: 6px;
-    overflow-x: auto;
+  position: relative; /* anchor point for the copy button */
+  padding: 1rem 1.25rem;
+  border-radius: 6px;
+  overflow-x: auto;
 }
+
 .copy-button {
   position: absolute;
   top: 0.5rem;
@@ -189,38 +179,46 @@ pre {
 .copy-button:hover {
   background: #fff;
 }
+
 code {
-    font-family: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
-    font-size: 0.95rem
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+  font-size: 0.95rem;
 }
 
 /* Inline code (outside of pre) */
 :not(pre) > code {
-    padding: 0.2em 0.4em;
-    border-radius: 3px;
-    background: rgba(128, 128, 128, 0.15);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  background: rgba(128, 128, 128, 0.15);
 }
 
-
 /*--------------------------*/
+
 img {
   max-width: min(100%, 720px);
   height: auto;
   display: block;
-  margin-inline: auto; /* center horizontally */
+  margin-inline: auto;
 }
+
+/*--------------------------*/
+/* Article page: content + TOC as flex columns */
+
 .page-wrapper {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
   max-width: 1200px;
   margin: 0 auto;
 }
 
 .content {
-  min-width: 0; /* prevents overflow */
+  flex: 1;
+  min-width: 0; /* prevent overflow inside the flex container */
 }
 
-/* Outline: inline, right after the summary (mobile default) */
 .toc-sidebar {
-  margin: 1.5rem 0;
+  flex: 0 0 160px;
 }
 
 .toc-title {
@@ -229,17 +227,9 @@ img {
   margin-bottom: 0.5rem;
 }
 
-/*--------------------------*/
-/* Sticky so it follows scroll */
 .toc {
   position: sticky;
   top: 1rem;
-}
-
-.toc-title {
-  font-size: 1rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
 }
 
 /* Hugo generates <nav><ul><li><a> structure */
@@ -261,43 +251,70 @@ img {
   color: #000;
 }
 
-
-
 /*--------------------------*/
+
 @media (prefers-color-scheme: dark) {
   html {
     filter: invert(1) hue-rotate(180deg);
   }
 
-  /* Images and videos are double-inverted to restore original colors */
+  /* Restore original colors for embedded media */
   img, video, iframe {
     filter: invert(1) hue-rotate(180deg);
   }
 }
 
+/*--------------------------*/
+/* Desktop: collapsed sidebar shrinks to zero */
+
 @media (min-width: 768px) {
-  main {
-    margin: 0 8% 8%;
+  body.sidebar-collapsed {
+    grid-template-columns: 0 1fr;
   }
 
-  /* Outline: floats to the right of the article body */
-  .toc-sidebar {
-    float: right;
-    width: 150px;
-    margin: 0 0 1rem 2rem;
-  }
-
-  /* Sticky so it follows scroll */
-  .toc {
-    position: sticky;
-    top: 1rem;
-  }
-
-  /* Contain the floated outline so the article doesn't collapse around it */
-  .content::after {
-    content: "";
-    display: table;
-    clear: both;
+  body.sidebar-collapsed .sidebar {
+    overflow: hidden;
   }
 }
 
+/*--------------------------*/
+/* Mobile: sidebar becomes a fixed overlay */
+
+@media (max-width: 767px) {
+  body {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "main";
+  }
+
+  main {
+    margin: 0 4% 4%;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 240px;
+    height: 100vh;
+    max-height: 100vh;
+    z-index: 100;
+    transform: translateX(-100%);
+    transition: transform 0.2s ease;
+  }
+
+  body.sidebar-mobile-open .sidebar {
+    transform: translateX(0);
+  }
+
+  /* Stack content and TOC vertically */
+  .page-wrapper {
+    flex-direction: column;
+  }
+
+  .toc-sidebar {
+    flex-basis: auto;
+    width: 100%;
+  }
+}

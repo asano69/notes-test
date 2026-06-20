@@ -2,9 +2,6 @@
 <aside id="sidebar" class="sidebar">
   <div class="sidebar-header">
     <a href="{{ .Site.BaseURL }}" class="sidebar-title">{{ .Site.Title }}</a>
-    <button id="sidebar-toggle" class="sidebar-toggle" aria-controls="sidebar-nav" aria-expanded="true">
-      <span aria-hidden="true">☰</span>
-    </button>
   </div>
   <nav id="sidebar-nav" class="sidebar-nav">
     <ul>
@@ -16,22 +13,42 @@
 </aside>
 
 <script>
-  // Remember whether the sidebar is expanded or collapsed across page loads.
-  // Collapsing toggles a class on <body>, which shrinks the sidebar's own
-  // grid column, rather than just hiding the section list inside it.
   const body = document.body;
   const toggle = document.getElementById('sidebar-toggle');
 
-  function setSidebarOpen(open) {
-    body.classList.toggle('sidebar-collapsed', !open);
-    toggle.setAttribute('aria-expanded', open);
-    localStorage.setItem('sidebarOpen', open);
+  function isMobile() {
+    return window.innerWidth < 768;
   }
 
-  const saved = localStorage.getItem('sidebarOpen');
-  setSidebarOpen(saved === null ? true : saved === 'true');
+  function setSidebarOpen(open) {
+    if (isMobile()) {
+      // Mobile: toggle a fixed overlay; don't touch the grid
+      body.classList.toggle('sidebar-mobile-open', open);
+      body.classList.remove('sidebar-collapsed');
+    } else {
+      // Desktop: collapse the grid column
+      body.classList.toggle('sidebar-collapsed', !open);
+      body.classList.remove('sidebar-mobile-open');
+      localStorage.setItem('sidebarOpen', String(open));
+    }
+    toggle.setAttribute('aria-expanded', String(open));
+  }
+
+  function getSidebarOpen() {
+    return isMobile()
+      ? body.classList.contains('sidebar-mobile-open')
+      : !body.classList.contains('sidebar-collapsed');
+  }
+
+  // On desktop restore the saved state; on mobile always start closed.
+  if (isMobile()) {
+    setSidebarOpen(false);
+  } else {
+    const saved = localStorage.getItem('sidebarOpen');
+    setSidebarOpen(saved === null ? true : saved === 'true');
+  }
 
   toggle.addEventListener('click', () => {
-    setSidebarOpen(body.classList.contains('sidebar-collapsed'));
+    setSidebarOpen(!getSidebarOpen());
   });
 </script>
