@@ -3,7 +3,9 @@
   <!-- Main content -->
   <article class="content">
     <h1 data-pagefind-weight="10">{{ .Title }}</h1>
-    <p class="summary" data-pagefind-weight="5">{{ .Summary }}</p>
+    {{- with .Params.summary }}
+    <p class="summary" data-pagefind-weight="5">{{ . }}</p>
+    {{- end }}
     {{ .Content }}
     {{ partial "backlinks.html" . }}
   </article>
