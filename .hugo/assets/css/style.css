@@ -33,10 +33,10 @@ header nav {
   display: flex;
   gap: 2rem;
 }
-
 main {
   grid-area: main;
   margin: 0 8% 8%;
+  min-width: 0; /* allow the grid track to shrink so wide content scrolls instead of overflowing the page */
 }
 
 /*--------------------------*/
@@ -167,11 +167,28 @@ body.sidebar-collapsed .sidebar-header {
 /*--------------------------*/
 /* Code blocks */
 pre {
+    position: relative; /* anchor point for the copy button */
     padding: 1rem 1.25rem;
     border-radius: 6px;
     overflow-x: auto;
 }
+.copy-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.8rem;
+  font-family: inherit;
+  border: 1px solid rgba(128, 128, 128, 0.4);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.85);
+  color: #272822;
+  cursor: pointer;
+}
 
+.copy-button:hover {
+  background: #fff;
+}
 code {
     font-family: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
     font-size: 0.95rem

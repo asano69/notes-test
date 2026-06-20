@@ -18,5 +18,7 @@
       });
     </script>
   {{ end }}
+  {{- $copyCode := resources.Get "js/copy-code.js" | minify | fingerprint }}
+  <script src="{{ $copyCode.RelPermalink }}" integrity="{{ $copyCode.Data.Integrity }}" defer></script>
 </body>
 </html>
