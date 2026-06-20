@@ -160,6 +160,7 @@ pre {
   padding: 1rem 1.25rem;
   border-radius: 6px;
   overflow-x: auto;
+  max-width: 100%; /* prevent overflow on narrow viewports */
 }
 
 .copy-button {
@@ -202,23 +203,48 @@ img {
 }
 
 /*--------------------------*/
-/* Article page: content + TOC as flex columns */
+/* Article page: grid layout.
+   Desktop: title spans both columns; summary and TOC share the same row;
+   content fills the left column below.
+   Mobile (overridden below): single column, TOC between summary and content. */
 
 .page-wrapper {
-  display: flex;
-  gap: 2rem;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 1fr 160px;
+  grid-template-areas:
+    "title   title"
+    "summary toc"
+    "content toc";
+  column-gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
 }
 
+/* Pages without a table of contents use a single-column layout. */
+.page-wrapper.no-toc {
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "title"
+    "summary"
+    "content";
+}
+
+.article-title {
+  grid-area: title;
+}
+
+.article-summary {
+  grid-area: summary;
+}
+
 .content {
-  flex: 1;
-  min-width: 0; /* prevent overflow inside the flex container */
+  grid-area: content;
+  min-width: 0; /* prevent overflow inside the grid cell */
 }
 
 .toc-sidebar {
-  flex: 0 0 160px;
+  grid-area: toc;
+  align-self: start;
 }
 
 .toc-title {
@@ -308,13 +334,14 @@ img {
     transform: translateX(0);
   }
 
-  /* Stack content and TOC vertically */
-  .page-wrapper {
-    flex-direction: column;
-  }
-
-  .toc-sidebar {
-    flex-basis: auto;
-    width: 100%;
+  /* Single column: title -> summary -> TOC -> content */
+  .page-wrapper,
+  .page-wrapper.no-toc {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "title"
+      "summary"
+      "toc"
+      "content";
   }
 }
