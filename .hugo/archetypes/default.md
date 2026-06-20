@@ -1,7 +1,11 @@
 ---
 title: '{{ replace .File.ContentBaseName "-" " " | title }}'
-date: '{{ .Date }}'
-summary: ""
-categories: []
+summary:
 tags: []
+categories: []
+draft:
+date: '{{ .Date }}'
+lastmod: '{{ .Date }}'
 ---
+
+

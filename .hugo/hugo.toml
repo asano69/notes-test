@@ -1,5 +1,7 @@
 baseURL = 'https://example.org/'
 title = 'Computer Notebook'
+
+
 #hasSummaryDivider = true # default
 #summaryLength = 20
 disablePathToLower = true # Disable URL lowercasing (preserve original case)

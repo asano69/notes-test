@@ -1,7 +1,7 @@
 {{ define "main" }}
 <div class="post-list">
   <h1>{{ .Title }}</h1>
-  {{- $pages := .Pages }}
+  {{- $pages := .RegularPages }}
   <ul class="card-list">
     {{- range $pages }}
     <li class="card">
