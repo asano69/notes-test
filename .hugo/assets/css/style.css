@@ -12,6 +12,7 @@ body {
     "header header"
     "sidebar main";
   min-height: 100vh;
+  transition: grid-template-columns 0.2s ease;
 }
 
 p {
@@ -69,6 +70,22 @@ main {
 
 .sidebar-toggle {
   cursor: pointer;
+}
+
+/* Collapsed state: shrink the sidebar column down to just the toggle
+   button, hiding the title and section list. */
+body.sidebar-collapsed {
+  grid-template-columns: 3rem 1fr;
+}
+
+body.sidebar-collapsed .sidebar-title,
+body.sidebar-collapsed .sidebar-nav {
+  display: none;
+}
+
+body.sidebar-collapsed .sidebar-header {
+  padding: 0.5rem;
+  justify-content: center;
 }
 
 /* Row 2+: section navigation */

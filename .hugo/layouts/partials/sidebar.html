@@ -16,18 +16,22 @@
 </aside>
 
 <script>
-  // Remember whether the section list is expanded or collapsed across page loads.
-  const nav = document.getElementById('sidebar-nav');
+  // Remember whether the sidebar is expanded or collapsed across page loads.
+  // Collapsing toggles a class on <body>, which shrinks the sidebar's own
+  // grid column, rather than just hiding the section list inside it.
+  const body = document.body;
   const toggle = document.getElementById('sidebar-toggle');
 
-  function setNavOpen(open) {
-    nav.hidden = !open;
+  function setSidebarOpen(open) {
+    body.classList.toggle('sidebar-collapsed', !open);
     toggle.setAttribute('aria-expanded', open);
-    localStorage.setItem('sidebarNavOpen', open);
+    localStorage.setItem('sidebarOpen', open);
   }
 
-  const saved = localStorage.getItem('sidebarNavOpen');
-  setNavOpen(saved === null ? true : saved === 'true');
+  const saved = localStorage.getItem('sidebarOpen');
+  setSidebarOpen(saved === null ? true : saved === 'true');
 
-  toggle.addEventListener('click', () => setNavOpen(nav.hidden));
+  toggle.addEventListener('click', () => {
+    setSidebarOpen(body.classList.contains('sidebar-collapsed'));
+  });
 </script>
