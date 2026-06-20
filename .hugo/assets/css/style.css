@@ -1,7 +1,8 @@
 body {
+  margin: 0;
   background-color: linen;
   color: #272822;
-  font-family: serif;
+  font-family: "IBM Plex Sans JP",sans-serif;
 
   /* Page layout: header spans full width on top,
      sidebar and main sit side by side below. */
@@ -25,8 +26,9 @@ header {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 0.5rem 2%;
+  padding: 0.5rem 2%;/* バーの太さ*/
   box-sizing: border-box;
+  background-color: Silver;
 }
 
 header nav {
@@ -37,9 +39,10 @@ header nav {
 
 main {
   grid-area: main;
-  margin: 0 8% 8%;
+  margin: 0 4% 8%; /* was 0 8% 8% */
   min-width: 0; /* allow the grid track to shrink so wide content scrolls instead of overflowing */
 }
+
 
 /*--------------------------*/
 /* Sidebar */
@@ -207,16 +210,15 @@ img {
    Desktop: title spans both columns; summary and TOC share the same row;
    content fills the left column below.
    Mobile (overridden below): single column, TOC between summary and content. */
-
 .page-wrapper {
   display: grid;
-  grid-template-columns: 1fr 160px;
+  grid-template-columns: 1fr 230px; /* was 1fr 160px */
   grid-template-areas:
     "title   title"
     "summary toc"
     "content toc";
-  column-gap: 2rem;
-  max-width: 1200px;
+  column-gap: 1.5rem; /* was 2rem */
+  max-width: 1300px; /* was 1200px */
   margin: 0 auto;
 }
 
@@ -261,12 +263,12 @@ img {
 /* Hugo generates <nav><ul><li><a> structure */
 .toc ul {
   list-style: none;
-  padding-left: 1rem;
+  padding-left: 0.5rem;
   margin: 0;
 }
 
 .toc a {
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   color: #666;
   text-decoration: none;
   display: block;

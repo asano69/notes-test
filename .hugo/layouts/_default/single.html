@@ -1,10 +1,10 @@
 {{ define "main" }}
 <div class="page-wrapper">
+  <h1 class="article-title" data-pagefind-weight="10">{{ .Title }}</h1>
+  {{- with .Params.summary }}
+  <p class="article-summary" data-pagefind-weight="5">{{ . }}</p>
+  {{- end }}
   <article class="content">
-    <h1 data-pagefind-weight="10">{{ .Title }}</h1>
-    {{- with .Params.summary }}
-    <p class="summary" data-pagefind-weight="5">{{ . }}</p>
-    {{- end }}
     {{ .Content }}
     {{ partial "backlinks.html" . }}
   </article>
@@ -18,4 +18,3 @@
   {{ end }}
 </div>
 {{ end }}
-
