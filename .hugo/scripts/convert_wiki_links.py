@@ -10,61 +10,36 @@ import sys
 import argparse
 from pathlib import Path
 
-FRONT_MATTER_RE = re.compile(r'^---\n(.*?)\n---\n?', re.DOTALL)
 WIKI_LINK_RE = re.compile(r'\[\[([^\]]+)\]\]')
 
-# URL cache to avoid re-reading files during wiki link resolution
-_url_cache: dict[str, str | None] = {}
 
-
-def extract_date(content: str) -> str | None:
-    """Return the raw date value from a file's front matter, or None."""
-    fm_match = FRONT_MATTER_RE.match(content)
-    if not fm_match:
-        return None
-    m = re.search(r'^date:\s*(.+)', fm_match.group(1), re.MULTILINE)
-    return m.group(1).strip().strip('"\'') if m else None
-
-
-def compute_url(date_str: str, section: str) -> str:
-    """Derive a Hugo URL from a date string and a content section name.
-    e.g. ('2026-06-01T19:59:11+09:00', 'posts') -> '/posts/2026-06-01T19-59-11'
+def url_for_file(file_path: Path, content_dir: Path) -> str:
+    """Return the default Hugo permalink for a content file: its path
+    relative to the content directory, without the extension, with a
+    trailing slash. An _index.md resolves to its parent directory's URL.
+    e.g. content_dir/test/aaa.md       -> '/test/aaa/'
+         content_dir/test/_index.md    -> '/test/'
     """
-    # Strip timezone offset (+HH:MM or -HH:MM), then replace colons with hyphens
-    without_tz = re.sub(r'[+-]\d{2}:\d{2}$', '', date_str)
-    url_date = without_tz.replace(':', '-')
-    return f'/{section}/{url_date}/' if section else f'/{url_date}/'
+    rel = file_path.relative_to(content_dir).with_suffix('')
+    if rel.name == '_index':
+        rel = rel.parent
+    posix = rel.as_posix()
+    return '/' if posix == '.' else f'/{posix}/'
 
 
 def build_index(content_dir: Path) -> tuple[dict[str, Path], dict[str, list[Path]]]:
     """Build two lookup tables from all .md files under content_dir.
-    by_path: 'content/posts/hello' (relative to project root, no extension) -> Path
+    by_path: 'sample/design/hello' (relative to content_dir, no extension) -> Path
     by_stem: 'hello' -> [Path, ...] (multiple entries signal an ambiguous stem)
     """
-    project_root = content_dir.parent
     by_path: dict[str, Path] = {}
     by_stem: dict[str, list[Path]] = {}
     for md_file in content_dir.rglob('*.md'):
         # Use forward slashes so keys match Obsidian's wiki link syntax on all platforms
-        key = str(md_file.relative_to(project_root).with_suffix('')).replace('\\', '/')
+        key = str(md_file.relative_to(content_dir).with_suffix('')).replace('\\', '/')
         by_path[key] = md_file
         by_stem.setdefault(md_file.stem, []).append(md_file)
     return by_path, by_stem
-
-
-def get_url_for_file(file_path: Path, content_dir: Path) -> str | None:
-    """Return the computed Hugo URL for a file, or None if no date field is present."""
-    cache_key = str(file_path)
-    if cache_key in _url_cache:
-        return _url_cache[cache_key]
-    date_str = extract_date(file_path.read_text(encoding='utf-8'))
-    url = None
-    if date_str:
-        parts = file_path.relative_to(content_dir).parts
-        section = parts[0] if len(parts) > 1 else ''
-        url = compute_url(date_str, section)
-    _url_cache[cache_key] = url
-    return url
 
 
 def replace_wiki_links(text: str, by_path: dict[str, Path],
@@ -91,10 +66,7 @@ def replace_wiki_links(text: str, by_path: dict[str, Path],
                       file=sys.stderr)
                 return match.group(0)
             target = candidates[0]
-        url = get_url_for_file(target, content_dir)
-        if url is None:
-            print(f'Warning: no date in {str(target)!r}', file=sys.stderr)
-            return match.group(0)
+        url = url_for_file(target, content_dir)
         return f'[{display}]({url})'
     return WIKI_LINK_RE.sub(resolve, text)
 

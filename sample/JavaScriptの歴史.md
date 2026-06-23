@@ -20,7 +20,7 @@ lastmod:
 
 	- Netscape Navigatorのシンボルは、船の舵輪、ウェブを航海するというメタファーが製品全体のテーマだった。cyberspaceという言葉は小説家William Gibson の*Burning Chrome* (1982)という作品で使われたが、cyber-には操舵するという意味が含まれていた。
 
-[[HTMLの歴史]]・[[CSSの歴史]]・[[JavaScriptの歴史]]
+[[HTMLの歴史]]・[[CSSの歴史]]・[JavaScriptの歴史](/sample/2026-06-01T19-59-11/)
 
 ```
 1993年  Mosaic開発
