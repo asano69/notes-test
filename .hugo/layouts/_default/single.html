@@ -1,8 +1,19 @@
 {{ define "main" }}
 <div class="page-wrapper">
   <h1 class="article-title" data-pagefind-weight="10">{{ .Title }}</h1>
-  {{- with .Params.summary }}
-  <p class="article-summary" data-pagefind-weight="5">{{ . }}</p>
+  {{- if or .Params.summary .Params.tags }}
+  <div class="article-summary">
+    {{- with .Params.summary }}
+    <p data-pagefind-weight="5">{{ . }}</p>
+    {{- end }}
+    {{- with .Params.tags }}
+    <div class="card-tags">
+      {{- range . }}
+      <a class="tag" href="{{ ($.Site.GetPage (printf "/tags/%s" .)).Permalink }}">{{ . }}</a>
+      {{- end }}
+    </div>
+    {{- end }}
+  </div>
   {{- end }}
   <article class="content">
     {{ .Content }}
