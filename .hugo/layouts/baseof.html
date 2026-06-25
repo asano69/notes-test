@@ -25,7 +25,7 @@
   {{- $copyCode := resources.Get "js/copy-code.js" | minify | fingerprint }}
   <script src="{{ $copyCode.RelPermalink }}" integrity="{{ $copyCode.Data.Integrity }}" defer></script>
 
-  <!--{{ partialCached "footer.html" . "main-footer" }}-->
+  {{/* {{ partialCached "footer.html" . "main-footer" }} */}}
 </body>
 
 </html>
