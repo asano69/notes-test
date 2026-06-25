@@ -30,9 +30,9 @@
 </div>
 {{ end }}
 
-{{/* 💡 Mermaidが必要な記事のときだけ、baseof.htmlの「body-js」ブロックに注入する */}}
-{{- if .Store.Get "hasMermaid" -}}
-  {{- define "body-js" -}}
+{{/* 💡 Mermaidが必要な記事のときだけ、baseof.htmlの「body-js」ブロックに注入する
+{{ define "body-js" }}
+  {{ if .Store.Get "hasMermaid" }}
     <script type="module">
       import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
       mermaid.initialize({
@@ -40,5 +40,5 @@
         theme: 'neutral'
       });
     </script>
-  {{- end -}}
-{{- end -}}
+  {{ end }}
+{{ end }}
