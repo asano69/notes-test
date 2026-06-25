@@ -1,22 +1,22 @@
+{{/* layouts/baseof.htmlから呼ばれるhead.html */}}
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+{{/* title: ルートならばサイト名、それ以外ならばページ名を表示 */}}
+<title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
 
-<title>
-  {{- if eq .Kind "404" -}}
-    404: Page not found | {{ .Site.Title }}
-  {{- else if and (not .IsHome) .Title -}}
-    {{ .Title }} | {{ .Site.Title }}
-  {{- else -}}
-    {{ .Site.Title }}
-  {{- end -}}
-</title>
+{{/* template: Hugoの既製品テンプレート */}}
+{{ template "_internal/opengraph.html" . }}
 
 
-
+{{/* style: サイト全体にmain.cssを適用する. */}}
 {{- $style := resources.Get "css/main.css" | minify | fingerprint }}
-<link rel="stylesheet" href="{{ $style.RelPermalink }}"
-      integrity="{{ $style.Data.Integrity }}">
+<link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}" crossorigin="anonymous">
 
 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+{{/* 子テンプレートから中身を注入してもらうためのソケット */}}
+{{ block "css" . }}{{ end }}
+{{ block "head-js" . }}{{ end }}
