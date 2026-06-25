@@ -9,10 +9,10 @@
 <body>
   <header>{{ partialCached "header.html" . "header" }}</header>
   <div class="layout">
-     <aside>{{ partial "sidebar.html" . }}</aside>
+    <aside>{{ partial "sidebar.html" . }}</aside>
     <main>{{ block "main" . }}{{ end }}</main>
   </div>
-  <footer>{{ partialCached "footer.html" . "footer" }}</footer>
+  {{/*<footer>{{ partialCached "footer.html" . "footer" }}</footer>*/}}
   <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
   {{ block "body-js" . }}{{ end }}
 </body>
