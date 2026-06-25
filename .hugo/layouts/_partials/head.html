@@ -14,7 +14,7 @@
 
 
 
-{{- $style := resources.Get "css/style.css" | minify | fingerprint }}
+{{- $style := resources.Get "css/main.css" | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $style.RelPermalink }}"
       integrity="{{ $style.Data.Integrity }}">
 

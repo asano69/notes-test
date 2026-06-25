@@ -3,13 +3,16 @@
 <head>
     {{- partial "head.html" . }}
 </head>
+
 <body>
   {{ partialCached "header.html" . "header" }}
+
   {{ partial "sidebar.html" . }}
-  <main>
-    {{ block "main" . }}{{ end }}
-  </main>
-  {{ if .Store.Get "hasMermaid" }}
+    <main>
+      {{ block "main" . }}{{ end }}
+    </main>
+
+    {{ if .Store.Get "hasMermaid" }}
     <script type="module">
       import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
       mermaid.initialize({
@@ -17,8 +20,12 @@
         theme: 'neutral'
       });
     </script>
-  {{ end }}
+
+    {{ end }}
   {{- $copyCode := resources.Get "js/copy-code.js" | minify | fingerprint }}
   <script src="{{ $copyCode.RelPermalink }}" integrity="{{ $copyCode.Data.Integrity }}" defer></script>
+
+  <!--{{ partialCached "footer.html" . "main-footer" }}-->
 </body>
+
 </html>
