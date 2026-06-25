@@ -1,6 +1,5 @@
-<!-- layouts/partials/sidebar.html -->
-<aside id="sidebar" class="sidebar">
-  <div class="sidebar-header">
+{{/* baseof.htmlから呼ばれるsidebar.html */}}
+<div class="sidebar-header">
     <a href="{{ .Site.BaseURL }}" class="sidebar-title">{{ .Site.Title }}</a>
   </div>
   <nav id="sidebar-nav" class="sidebar-nav">
@@ -9,8 +8,9 @@
         {{- partial "sidebar-section.html" (dict "page" . "current" $) }}
       {{- end }}
     </ul>
-  </nav>
-</aside>
+</nav>
+
+{{/*
 
 <script>
   const body = document.body;
@@ -52,3 +52,6 @@
     setSidebarOpen(!getSidebarOpen());
   });
 </script>
+
+
+*/}}

@@ -2,29 +2,18 @@
 <html lang="{{ .Language.Lang }}">
 <head>
     {{ partial "head.html" . }}
-
-    {{/* 子テンプレートから中身を注入してもらうためのソケット */}}
+    {{- $js := resources.Get "js/main.js" | js.Build (dict "minify" true) | fingerprint }}
     {{ block "css" . }}{{ end }}
     {{ block "head-js" . }}{{ end }}
 </head>
-
 <body>
-  {{ partialCached "header.html" . "header" }}
-
-  {{ partial "sidebar.html" . }}
-  
-  <main>
-      {{ block "main" . }}{{ end }}
-  </main>
-
-
-  {{- $js := resources.Get "js/main.js" | js.Build (dict "minify" true) | fingerprint }}
+  <header>{{ partialCached "header.html" . "header" }}</header>
+  <div class="layout">
+     <aside>{{ partial "sidebar.html" . }}</aside>
+    <main>{{ block "main" . }}{{ end }}</main>
+  </div>
+  <footer>{{ partialCached "footer.html" . "footer" }}</footer>
   <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
-
-
-  {{/* {{ partialCached "footer.html" . "main-footer" }} */}}
-
   {{ block "body-js" . }}{{ end }}
 </body>
-
 </html>

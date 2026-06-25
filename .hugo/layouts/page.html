@@ -22,7 +22,7 @@
   {{ if .TableOfContents }}
   <aside class="toc-sidebar">
     <nav class="toc">
-      <h2 class="toc-title">Outline</h2>
+      <h2 class="toc-title">TABLE OF CONTENTS</h2>
       {{ .TableOfContents }}
     </nav>
   </aside>
@@ -30,7 +30,10 @@
 </div>
 {{ end }}
 
-{{/* Mermaidが必要な記事だけ、baseof.htmlの「body-js」ブロックに注入する */}}
+{{/* --- Mermaid ---
+- Mermaidが必要な記事だけ、baseof.htmlの「body-js」ブロックに注入する。
+- assets/js/modules/mermaid-init.jsを作成する方法もあるがmain.jsで読まれないものをおくのは奇妙。static/js/init-mermaid に分離するのも手だが、page.htmlにベタ書きするほうがシンプルでると判断した。
+*/}}
 {{ define "body-js" }}
   {{ if .Store.Get "hasMermaid" }}
     <script type="module">
