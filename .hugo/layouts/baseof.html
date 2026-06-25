@@ -12,22 +12,15 @@
   {{ partialCached "header.html" . "header" }}
 
   {{ partial "sidebar.html" . }}
+  
   <main>
       {{ block "main" . }}{{ end }}
   </main>
 
-    {{ if .Store.Get "hasMermaid" }}
-    <script type="module">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
-      mermaid.initialize({
-        startOnLoad: true,
-        theme: 'neutral'
-      });
-    </script>
 
-    {{ end }}
-  {{- $copyCode := resources.Get "js/copy-code.js" | minify | fingerprint }}
-  <script src="{{ $copyCode.RelPermalink }}" integrity="{{ $copyCode.Data.Integrity }}" defer></script>
+  {{- $js := resources.Get "js/main.js" | js.Build (dict "minify" true) | fingerprint }}
+  <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+
 
   {{/* {{ partialCached "footer.html" . "main-footer" }} */}}
 
