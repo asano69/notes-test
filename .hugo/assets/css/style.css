@@ -28,7 +28,7 @@ header {
   width: 100%;
   padding: 0.8rem; /* バーの太さ*/
   box-sizing: border-box;
-  background-color: Silver;
+  background-color: #4f752b; /*エメラルド*/
   /*box-shadow: 0px 1px 0px black;*/
 }
 

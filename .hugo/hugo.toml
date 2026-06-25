@@ -19,6 +19,8 @@ ignoreFiles = [
 ]
 
 
+
+
 defaultContentLanguage = 'ja'
 [languages]
   [languages.ja]
@@ -28,6 +30,9 @@ defaultContentLanguage = 'ja'
 [params]
   mainSections = ["test"]
   dateFormat = "2006-01-02T15:04:05Z07:00"
+
+  # Regular expressions (RE2 syntax) matching tag names to hide from the tag list page
+  excludedTagPatterns = ["^INQ-", "^EXP-"]
 
 [markup]
   [markup.highlight]
