@@ -30,7 +30,7 @@
 </div>
 {{ end }}
 
-{{/* 💡 Mermaidが必要な記事のときだけ、baseof.htmlの「body-js」ブロックに注入する
+{{/* Mermaidが必要な記事だけ、baseof.htmlの「body-js」ブロックに注入する */}}
 {{ define "body-js" }}
   {{ if .Store.Get "hasMermaid" }}
     <script type="module">
