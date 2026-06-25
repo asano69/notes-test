@@ -1,16 +1,20 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.Language.Lang }}">
+<html lang="{{ .Language.Lang }}">
 <head>
-    {{- partial "head.html" . }}
+    {{ partial "head.html" . }}
+
+    {{/* 子テンプレートから中身を注入してもらうためのソケット */}}
+    {{ block "css" . }}{{ end }}
+    {{ block "head-js" . }}{{ end }}
 </head>
 
 <body>
   {{ partialCached "header.html" . "header" }}
 
   {{ partial "sidebar.html" . }}
-    <main>
+  <main>
       {{ block "main" . }}{{ end }}
-    </main>
+  </main>
 
     {{ if .Store.Get "hasMermaid" }}
     <script type="module">
@@ -26,6 +30,8 @@
   <script src="{{ $copyCode.RelPermalink }}" integrity="{{ $copyCode.Data.Integrity }}" defer></script>
 
   {{/* {{ partialCached "footer.html" . "main-footer" }} */}}
+
+  {{ block "body-js" . }}{{ end }}
 </body>
 
 </html>

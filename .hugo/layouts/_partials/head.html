@@ -2,6 +2,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
 {{/* title: ルートならばサイト名、それ以外ならばページ名を表示 */}}
 <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
@@ -14,9 +15,3 @@
 {{- $style := resources.Get "css/main.css" | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}" crossorigin="anonymous">
 
-
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-
-{{/* 子テンプレートから中身を注入してもらうためのソケット */}}
-{{ block "css" . }}{{ end }}
-{{ block "head-js" . }}{{ end }}
