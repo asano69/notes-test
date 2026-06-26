@@ -1,3 +1,4 @@
+{{/* page.htmlからbaseof.htmlに差込み */}}
 {{ define "main" }}
 <div class="page-wrapper">
   <h1 class="article-title" data-pagefind-weight="10">{{ .Title }}</h1>
@@ -19,16 +20,14 @@
     {{ .Content }}
     {{ partial "backlinks.html" . }}
   </article>
-  {{ if .TableOfContents }}
-  <aside class="toc-sidebar">
-    <nav class="toc">
-      <h2 class="toc-title">TABLE OF CONTENTS</h2>
-      {{ .TableOfContents }}
-    </nav>
-  </aside>
-  {{ end }}
-</div>
+ </div>
 {{ end }}
+
+{{/* page.htmlからbaseof.htmlに差込み */}}
+{{ define "toc" }}
+  <aside class="toc">{{ partial "toc.html" . }}</aside>
+{{ end }}
+
 
 {{/* --- Mermaid ---
 - Mermaidが必要な記事だけ、baseof.htmlの「body-js」ブロックに注入する。

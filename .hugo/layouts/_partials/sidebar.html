@@ -1,57 +1,36 @@
 {{/* baseof.htmlから呼ばれるsidebar.html */}}
-<div class="sidebar-header">
-    <a href="{{ .Site.BaseURL }}" class="sidebar-title">{{ .Site.Title }}</a>
-  </div>
-  <nav id="sidebar-nav" class="sidebar-nav">
-    <ul>
-      {{- range .Site.Sections.ByTitle }}
-        {{- partial "sidebar-section.html" (dict "page" . "current" $) }}
-      {{- end }}
-    </ul>
-</nav>
 
-{{/*
+<div class="sidebar-title">
+  <a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
+</div>
 
-<script>
-  const body = document.body;
-  const toggle = document.getElementById('sidebar-toggle');
+<nav>{{ template "section-tree" (dict "section" .Site.Home "current" .) }}</nav>
 
-  function isMobile() {
-    return window.innerWidth < 768;
-  }
-
-  function setSidebarOpen(open) {
-    if (isMobile()) {
-      // Mobile: toggle a fixed overlay; don't touch the grid
-      body.classList.toggle('sidebar-mobile-open', open);
-      body.classList.remove('sidebar-collapsed');
-    } else {
-      // Desktop: collapse the grid column
-      body.classList.toggle('sidebar-collapsed', !open);
-      body.classList.remove('sidebar-mobile-open');
-      localStorage.setItem('sidebarOpen', String(open));
-    }
-    toggle.setAttribute('aria-expanded', String(open));
-  }
-
-  function getSidebarOpen() {
-    return isMobile()
-      ? body.classList.contains('sidebar-mobile-open')
-      : !body.classList.contains('sidebar-collapsed');
-  }
-
-  // On desktop restore the saved state; on mobile always start closed.
-  if (isMobile()) {
-    setSidebarOpen(false);
-  } else {
-    const saved = localStorage.getItem('sidebarOpen');
-    setSidebarOpen(saved === null ? true : saved === 'true');
-  }
-
-  toggle.addEventListener('click', () => {
-    setSidebarOpen(!getSidebarOpen());
-  });
-</script>
-
-
-*/}}
+{{ define "section-tree" }} {{ $current := .current }}
+<ul>
+  {{ range .section.Sections }}
+  <li>
+    <a
+      href="{{ .RelPermalink }}"
+      {{
+      if
+      or
+      (.IsAncestor
+      $current)
+      (eq
+      .RelPermalink
+      $current.RelPermalink)
+      }}
+      class="active"
+      {{
+      end
+      }}
+    >
+      {{ .Title }}
+    </a>
+    {{ if .Sections }} {{ template "section-tree" (dict "section" . "current"
+    $current) }} {{ end }}
+  </li>
+  {{ end }}
+</ul>
+{{ end }}

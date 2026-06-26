@@ -1,46 +1,62 @@
-baseURL = 'https://example.org/'
-title = 'Computer Notebook'
-
-
-#hasSummaryDivider = true # default
-#summaryLength = 20
-disablePathToLower = true # Disable URL lowercasing (preserve original case)
 contentDir = "."
-layoutDir  = ".hugo/layouts"
-assetDir  = ".hugo/assets"
-staticDir  = ".hugo/static"
+layoutDir = ".hugo/layouts"
+assetDir = ".hugo/assets"
+staticDir = ".hugo/static"
 publishDir = ".hugo/public"
-
-
 ignoreFiles = [
-  '/\.hugo/',   # .hugo/ ディレクトリを除外
-  'README\.md$', # README等を除外
-  '/99-configs/'
+  '/\.hugo/',     # .hugo/ ディレクトリを除外
+  'README\.md$',  # README等を除外
+  '/99-configs/',
 ]
 
 
+baseURL = 'https://example.org/'
+title = 'Computer Notebook'
+
+disablePathToLower = true # Disable URL lowercasing (preserve original case)
+
 defaultContentLanguage = 'ja'
 [languages]
-  [languages.ja]
-    locale = 'ja'
+[languages.ja]
+locale = 'ja'
+
+
+[taxonomies]
+tag = "tags"
+#category = "categories"
+#author = "authors"
+
+
+[[menus.main]]
+name = 'Home'
+pageRef = '/'
+weight = 10
+
+
+[markup]
+[markup.highlight]
+codeFences = true  # Enable fenced code blocks (``` style)
+noClasses = true   # Use inline styles (no external CSS needed)
+style = "github"
+lineNos = false    # Enable if you want line numbers
+guessSyntax = true # Auto-detection is unreliable; always specify language
+
+[markup.tableOfContents]
+startLevel = 2
+endLevel = 6
+ordered = false
+
+[markup.goldmark.renderer]
+unsafe = true # Allow raw HTML in markdown content
+
+# 数式デリミタをHugoのMarkdown処理素通り（passthrough）にする設定。 MathJaxやKaTeXへの受け渡しが正しく機能するために必要です。
+[markup.goldmark.extensions.passthrough]
+enable = true
+[markup.goldmark.extensions.passthrough.delimiters]
+block = [["$$", "$$"], ["\\[", "\\]"]]
+inline = [["$", "$"], ["\\(", "\\)"]]
 
 
 [params]
-  mainSections = ["test"]
-  dateFormat = "2006-01-02T15:04:05Z07:00"
-
-[markup]
-  [markup.highlight]
-    codeFences  = true   # Enable fenced code blocks (``` style)
-    noClasses   = true   # Use inline styles (no external CSS needed)
-    style       = "monokai"
-    lineNos     = false  # Enable if you want line numbers
-    guessSyntax = false  # Auto-detection is unreliable; always specify language
-
-  [markup.tableOfContents]
-    startLevel = 2
-    endLevel = 6
-    ordered = false
-  [markup.goldmark.renderer]
-    unsafe = true   # Allow raw HTML in markdown content
-
+mainSections = ["test"]
+dateFormat = "2006-01-02T15:04:05Z07:00"

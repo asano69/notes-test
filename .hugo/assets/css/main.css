@@ -1,36 +1,22 @@
+/*
+@import 'base.css';
+@import 'layout.css';
+@import 'components.css';
+*/
+
+html {
+}
+
 body {
   margin: 0;
-  background-color: linen;
-  color: #272822;
+  color: #2c3e50;
+  background-color: #f5f5fa;
   font-family: "IBM Plex Sans JP", sans-serif;
-
-  /* Page layout: header spans full width on top,
-     sidebar and main sit side by side below. */
-  display: grid;
-  grid-template-columns: 240px 1fr; /*Sidebar*/
-  grid-template-rows: auto 1fr;
-  grid-template-areas:
-    "header header"
-    "sidebar main";
   min-height: 100vh;
-  transition: grid-template-columns 0.2s ease;
 }
 
-/* サイドバー */
-.layout {
-  display: grid;
-  grid-template-columns: 240px 1fr; /* サイドバー左、メイン右 */
-}
-
-
-
-
-p {
-  font-size: 1rem;
-}
-
+/*----------header --------*/
 header {
-  grid-area: header;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -47,75 +33,68 @@ header nav {
   align-items: center;
 }
 
-main {
-  grid-area: main;
-  margin: 0 2% 4%; */ /* was 0 8% 8% */
-  min-width: 0; /* allow the grid track to shrink so wide content scrolls instead of overflowing */
+.layout {
+  display: grid;
+  grid-template-columns: 240px 4fr 1fr;
+  gap: 1rem;
+  min-height: 100vh;
+  margin: 1.5rem;
 }
-
-
-/*--------------------------*/
-/* Sidebar */
 
 .sidebar {
-  grid-area: sidebar;
-  background: #f5f5f5;
+  font-size: 1.3rem;
   position: sticky;
-  top: 0;
-  align-self: start;
-  max-height: 100vh;
-  overflow-y: auto;
+  top: 1rem; /*scrall中に張り付く位置*/
+  align-self: start; /*grid itemは defalutでstretch*/
 }
-
-.sidebar-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  padding: 1rem;
-}
-
-.sidebar-title {
-  font-weight: bold;
+.sidebar a {
+  display: block;
   text-decoration: none;
   color: inherit;
 }
-
-.sidebar-toggle {
-  cursor: pointer;
-  background: none;
-  border: none;
-  font-size: 1rem;
-  padding: 0;
-  line-height: 1;
+.sidebar a:hover {
+  color: black;
 }
 
-.sidebar-nav ul {
+.sidebar-title {
+  display: block;
+}
+
+.layout main {
+  padding: 3rem;
+  background-color: linen;
+  border-radius: 3px;
+  box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.35);
+}
+
+.toc {
+  position: sticky;
+  top: 2rem;
+  align-self: start; /*grid itemは defalutでstretch*/
+}
+
+/* Hugo generates <nav><ul><li><a> structure */
+.toc ul {
   list-style: none;
+  padding-left: 0.5rem;
   margin: 0;
-  padding: 0;
 }
 
-.sidebar-nav > ul {
-  padding: 0 1rem 1rem;
+.toc a {
+  font-size: 1rem;
+  color: #666;
+  text-decoration: none;
+  display: block;
+  padding: 2px 0;
 }
 
-/* Indent each nested level of subsections */
-.sidebar-nav details ul {
-  padding-left: 1rem;
+.toc a:hover {
+  color: #000;
 }
 
-.sidebar-nav li.active > a,
-.sidebar-nav li.active > details > summary > a {
-  font-weight: bold;
+p {
+  font-size: 1rem;
 }
-
-.sidebar-nav details > summary {
-  cursor: pointer;
-}
-
-/*--------------------------*/
-/* Card list */
 
 .card-list {
   list-style: none;
@@ -128,7 +107,6 @@ main {
   flex-direction: column;
   margin: 1.5rem;
 }
-
 
 .card-title {
   margin: 0;
@@ -150,7 +128,7 @@ main {
   display: flex;
   align-items: center;
   font-size: 0.9rem;
- /* gap: 0.4rem; */
+  /* gap: 0.4rem; */
 }
 
 .card-tags {
@@ -160,7 +138,7 @@ main {
 
 .card-summary {
   font-size: 1rem;
-        margin: 0;
+  margin: 0;
   padding: 0;
 }
 
@@ -175,36 +153,39 @@ main {
 
 /*--------------------------*/
 /* Code blocks */
-
-pre {
-  position: relative; /* anchor point for the copy button */
-  padding: 1rem 1.25rem;
-  border-radius: 6px;
-  overflow-x: auto;
-  max-width: 100%; /* prevent overflow on narrow viewports */
+code {
+  font-family:
+    ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
 }
 
-.copy-button {
+.code-block {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  border-radius: 6px;
+  overflow-x: auto;
+  max-width: 100%;
+  background: #fafafa;
+}
+
+.code-block .highlight {
+  margin: 0;
+  padding: 0;
+}
+
+.code-block pre {
+  margin: 0;
+  padding: 1rem; /* ここで好みの余白を設定 */
+}
+
+.copy-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
-  padding: 0.15rem 0.6rem;
-  font-size: 0.8rem;
-  font-family: inherit;
-  border: 1px solid rgba(128, 128, 128, 0.4);
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.85);
-  color: #272822;
-  cursor: pointer;
-}
-
-.copy-button:hover {
-  background: #fff;
-}
-
-code {
-  font-family: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
-  font-size: 0.85rem;
 }
 
 /* Inline code (outside of pre) */
@@ -262,41 +243,6 @@ img {
   min-width: 0; /* prevent overflow inside the grid cell */
 }
 
-.toc-sidebar {
-  grid-area: toc;
-  align-self: start;
-}
-
-.toc-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
-.toc {
-  position: sticky;
-  top: 1rem;
-}
-
-/* Hugo generates <nav><ul><li><a> structure */
-.toc ul {
-  list-style: none;
-  padding-left: 0.5rem;
-  margin: 0;
-}
-
-.toc a {
-  font-size: 1rem;
-  color: #666;
-  text-decoration: none;
-  display: block;
-  padding: 2px 0;
-}
-
-.toc a:hover {
-  color: #000;
-}
-
 /*--------------------------*/
 
 @media (prefers-color-scheme: dark) {
@@ -305,7 +251,9 @@ img {
   }
 
   /* Restore original colors for embedded media */
-  img, video, iframe {
+  img,
+  video,
+  iframe {
     filter: invert(1) hue-rotate(180deg);
   }
 }

@@ -8,3 +8,8 @@ date: 2026-06-23T20:05:41+09:00
 lastmod: 
 ---
 foo
+
+```mermaid
+graph TD
+    A --> B
+```
