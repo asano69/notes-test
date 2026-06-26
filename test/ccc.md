@@ -98,19 +98,6 @@ Tables aren't part of the core Markdown spec, but Hugo supports supports them ou
 </html>
 ```
 
-### Code block indented with four spaces
-
-    <!doctype html>
-    <html lang="en">
-    <head>
-      <meta charset="utf-8">
-      <title>Example HTML5 Document</title>
-    </head>
-    <body>
-      <p>Test</p>
-    </body>
-    </html>
-
 ### Diff code block
 
 ```diff
