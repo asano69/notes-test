@@ -1,0 +1,11 @@
+{{- if .AlertType -}}
+<div class="callout callout-{{ .AlertType }}">
+  <p class="callout-title">
+    {{- with .AlertTitle -}}{{ . }}{{- else -}}{{ $.AlertType | title }}{{- end
+    -}}
+  </p>
+  {{ .Text | safeHTML }}
+</div>
+{{- else -}}
+<blockquote>{{ .Text | safeHTML }}</blockquote>
+{{- end -}}
