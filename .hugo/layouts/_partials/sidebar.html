@@ -10,6 +10,15 @@
     {{- end }}
   </a>
 </div>
+
+{{/* Incremental section filter */}}
+<input
+  id="section-search"
+  type="search"
+  placeholder="Filter sections…"
+  autocomplete="off"
+/>
+
 <nav>
   <ul>
     {{- range .Site.Sections.ByTitle }}
