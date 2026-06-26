@@ -10,8 +10,16 @@ lastmod:
 
 
 bbbb [aaa](/test/aaa/)
-
-
+```js
+// assets/js/copy-code.js
+function copyCode(btn) {
+  const code = btn.nextElementSibling.querySelector("code");
+  navigator.clipboard.writeText(code.innerText).then(() => {
+    btn.textContent = "Copied!";
+    setTimeout(() => { btn.textContent = "Copy"; }, 2000);
+  });
+}
+```
 ```js
 // assets/js/copy-code.js
 function copyCode(btn) {

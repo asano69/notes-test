@@ -1,16 +1,18 @@
 <!doctype html>
 <html lang="{{ .Language.Lang }}">
   <head>
-    {{ partial "head.html" . }} {{- $js := resources.Get "js/main.js" | js.Build
-    (dict "minify" true) | fingerprint }} {{ block "css" . }}{{ end }} {{ block
-    "head-js" . }}{{ end }}
+    {{ partial "head.html" . }}
+    {{- $js := resources.Get "js/main.js" 
+      | js.Build (dict "minify" true) | fingerprint }}
+    {{ block "css" . }}{{ end }}
+    {{ block "head-js" . }}{{ end }}
   </head>
   <body>
     {{ block "header" . }}{{ end }}
-    <div class="layout">
+    <div class="layout">   
       <aside class="sidebar">{{ partial "sidebar.html" . }}</aside>
       <main>{{ block "main" . }}{{ end }}</main>
-      {{ block "toc" . }}{{ end }} {{/* <= Only rendered on single pages */}}
+      {{ block "toc" . }}{{ end }}{{/* <= Only rendered on single pages */}}
     </div>
     {{/*
     <footer>{{ partialCached "footer.html" . "footer" }}</footer>

@@ -1,36 +1,18 @@
-{{/* baseof.htmlから呼ばれるsidebar.html */}}
-
+{{/* sidebar.html, called from baseof.html */}}
 <div class="sidebar-title">
   <a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
 </div>
-
-<nav>{{ template "section-tree" (dict "section" .Site.Home "current" .) }}</nav>
-
-{{ define "section-tree" }} {{ $current := .current }}
-<ul>
-  {{ range .section.Sections }}
-  <li>
-    <a
-      href="{{ .RelPermalink }}"
-      {{
-      if
-      or
-      (.IsAncestor
-      $current)
-      (eq
-      .RelPermalink
-      $current.RelPermalink)
-      }}
-      class="active"
-      {{
-      end
-      }}
-    >
-      {{ .Title }}
-    </a>
-    {{ if .Sections }} {{ template "section-tree" (dict "section" . "current"
-    $current) }} {{ end }}
-  </li>
-  {{ end }}
-</ul>
-{{ end }}
+<nav>
+  <ul>
+    {{ range (where .Site.Pages "Kind" "section").ByTitle }}
+    <li>
+      
+        href="{{ .RelPermalink }}"
+        {{ if or (.IsAncestor $) (eq .RelPermalink $.RelPermalink) }}class="active"{{ end }}
+      >
+        {{ .Title }}
+      </a>
+    </li>
+    {{ end }}
+  </ul>
+</nav>

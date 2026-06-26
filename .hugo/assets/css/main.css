@@ -52,6 +52,9 @@ header nav {
 
 .sidebar-title {
   display: block;
+  text-align: center;
+  font-size: 1.2rem;
+  text-decoration: underline;
 }
 
 .layout main {
@@ -155,7 +158,7 @@ code {
 .code-block {
   position: relative;
   padding: 0;
-  margin: 0;
+  margin-bottom: 1rem;
   border-radius: 6px;
   overflow-x: auto;
   max-width: 100%;
