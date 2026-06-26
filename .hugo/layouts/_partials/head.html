@@ -1,17 +1,40 @@
 {{/* layouts/baseof.htmlから呼ばれるhead.html */}}
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
 {{/* title: ルートならばサイト名、それ以外ならばページ名を表示 */}}
-<title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
-
-{{/* template: Hugoの既製品テンプレート */}}
+<title>
+  {{ if .IsHome }}
+    {{ .Site.Title }}
+  {{ else }}
+    {{ .Title }} |
+    {{ .Site.Title }}
+  {{ end }}
+</title>
+{{/* template:
+  Hugoの既製品テンプレート
+*/}}
 {{ template "_internal/opengraph.html" . }}
 
+{{/* style: サイト全体にmain.cssを適用する. style: Concatenate CSS files into a
+  single bundle, then minify and fingerprint.
+*/}}
 
-{{/* style: サイト全体にmain.cssを適用する. */}}
-{{- $style := resources.Get "css/main.css" | minify | fingerprint }}
-<link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}" crossorigin="anonymous">
+{{- $style := slice
+  (resources.Get "css/main.css")
+  (resources.Get "css/callout.css")
+  | resources.Concat "css/bundle.css"
+  | minify
+  | fingerprint
+}}
 
+
+<link
+  rel="stylesheet"
+  href="{{ $style.RelPermalink }}"
+  integrity="{{ $style.Data.Integrity }}"
+  crossorigin="anonymous"
+/>
