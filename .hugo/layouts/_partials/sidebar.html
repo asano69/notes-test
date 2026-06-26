@@ -2,7 +2,13 @@
 
 
 <div class="sidebar-title">
-  <a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
+  <a href="{{ .Site.BaseURL }}">
+    {{- with resources.Get "icons/library.svg" }}
+      {{/* <svg の後ろに width="60" height="60" を注入する */}}
+      {{ $svg := .Content | replaceRE `<svg` `<svg width="60" height="60"` }}
+      {{ $svg | safeHTML }}
+    {{- end }}
+  </a>
 </div>
 <nav>
   <ul>
