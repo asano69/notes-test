@@ -29,6 +29,16 @@
 {{ end }}
 
 
+{{/* --- KaTeX ---
+- KaTeXが必要な記事だけロードされるようにする
+*/}}
+{{ define "css" }}
+  {{ if .Store.Get "hasKatex" }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  {{ end }}
+{{ end }}
+
+
 {{/* --- Mermaid ---
 - Mermaidが必要な記事だけ、baseof.htmlの「body-js」ブロックに注入する。
 - assets/js/modules/mermaid-init.jsを作成する方法もあるがmain.jsで読まれないものをおくのは奇妙。static/js/init-mermaid に分離するのも手だが、page.htmlにベタ書きするほうがシンプルでると判断した。
@@ -37,10 +47,23 @@
   {{ if .Store.Get "hasMermaid" }}
     <script type="module">
       import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
-      mermaid.initialize({
-        startOnLoad: true,
-        theme: 'neutral'
-      });
+      mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
     </script>
   {{ end }}
+
+{{/* --- KaTeX ---
+- KaTeXが必要な記事だけロードされるようにする
+*/}}
+{{ if .Store.Get "hasKatex" }}
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+      onload="renderMathInElement(document.body, {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$',  right: '$',  display: false}
+        ]
+      })"></script>
+  {{ end }}
 {{ end }}
+
+

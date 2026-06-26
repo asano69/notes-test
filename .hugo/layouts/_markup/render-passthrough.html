@@ -1,0 +1,3 @@
+{{- /* render-passthrough.html: set flag for conditional KaTeX loading */ -}}
+{{- .Page.Store.Set "hasKatex" true -}} {{- if eq .Type "block" -}} $${{ .Inner
+| safeHTML }}$$ {{- else -}} ${{ .Inner | safeHTML }}$ {{- end -}}
