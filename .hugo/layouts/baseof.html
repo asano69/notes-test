@@ -4,7 +4,6 @@
     {{ partial "head.html" . }} {{- $js := resources.Get "js/main.js" | js.Build
     (dict "minify" true) | fingerprint }} {{ block "css" . }}{{ end }} {{ block
     "head-js" . }}{{ end }}
-    <script src="{{ "js/copy-code.js" | relURL }}"></script>
   </head>
   <body>
     {{ block "header" . }}{{ end }}

@@ -1,7 +1,10 @@
-import { initCopyCode } from './copy-code.js';
+import { initCopyCode } from "./copy-code.js";
 
-// 画面の読み込みが終わったら実行
-document.addEventListener('DOMContentLoaded', () => {
-    initCopyCode();
-    // 他にも機能があればここに並べていく
+// イベント委譲の設計パターンを使用。
+// Single delegated listener for all interactive elements
+document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("click", (e) => {
+    if (e.target.matches(".copy-btn")) handleCopyCode(e.target);
+    // Add future button handlers here
+  });
 });
