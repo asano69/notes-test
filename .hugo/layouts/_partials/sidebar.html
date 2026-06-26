@@ -1,18 +1,21 @@
 {{/* sidebar.html, called from baseof.html */}}
+
+
 <div class="sidebar-title">
   <a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
 </div>
 <nav>
   <ul>
-    {{ range (where .Site.Pages "Kind" "section").ByTitle }}
-    <li>
-      
-        href="{{ .RelPermalink }}"
-        {{ if or (.IsAncestor $) (eq .RelPermalink $.RelPermalink) }}class="active"{{ end }}
-      >
-        {{ .Title }}
-      </a>
-    </li>
-    {{ end }}
+    {{- range .Site.Sections.ByTitle }}
+      <li>
+        <a
+          href="{{ .RelPermalink }}"
+          class="{{ if or (eq .RelPermalink $.RelPermalink) (.IsAncestor $) }}
+            active
+          {{ end }}"
+          >{{ .Title }}</a
+        >
+      </li>
+    {{- end }}
   </ul>
 </nav>

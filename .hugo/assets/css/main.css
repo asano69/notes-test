@@ -32,29 +32,48 @@ header nav {
   grid-template-columns: 240px 4fr 1fr;
   gap: 1rem;
   min-height: 100vh;
-  margin: 1.5rem;
+  margin-top: 1.5rem;
 }
 
 .sidebar {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   position: sticky;
-  top: 1rem; /*scrall中に張り付く位置*/
-  align-self: start; /*grid itemは defalutでstretch*/
-}
-.sidebar a {
-  display: block;
-  text-decoration: none;
-  color: inherit;
-}
-.sidebar a:hover {
-  color: black;
-}
+  top: 1rem; /* Offset from the top while the page scrolls */
+  align-self: start; /* Override the default stretch behavior of grid items */
+  max-height: calc(100vh - 2rem); /* leave room for the top offset */
+  overflow-y: auto;
+  & a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    padding: 0.5rem 0.8rem;
+    border-radius: 0.5rem;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease;
 
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.07);
+      color: #111;
+    }
+  }
+
+  & ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  & li + li {
+    margin-top: 0.4rem;
+  }
+}
 .sidebar-title {
   display: block;
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   text-decoration: underline;
+  margin-bottom: 2rem;
 }
 
 .layout main {
