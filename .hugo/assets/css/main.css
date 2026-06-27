@@ -11,13 +11,13 @@ body {
 
 .layout {
   display: grid;
-  grid-template-columns: 240px 4fr 1fr;
+  grid-template-columns: 4fr 15fr 5fr;
   min-height: 100vh;
   margin-top: 1.5rem;
 }
 
 .sidebar {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   position: sticky;
   top: 1rem; /* Offset from the top while the page scrolls */
   align-self: start; /* Override the default stretch behavior of grid items */
@@ -41,13 +41,13 @@ body {
 
   #section-search {
     display: block;
-    width: 100%;
     box-sizing: border-box;
-    padding: 0.3rem 0.5rem;
-    margin-bottom: 0.75rem;
+    padding: 0.6rem 1rem;
+    margin: 0.75rem auto;
+    max-width: 90%;
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 1rem;
+    font-size: 1.1rem;
     background: transparent;
     color: inherit;
   }
@@ -79,8 +79,10 @@ body {
 
 .toc {
   position: sticky;
-  top: 2rem;
+
   align-self: start; /*grid itemは defalutでstretch*/
+  margin: 4rem 1rem;
+  top: 4rem;
 }
 
 /* Hugo generates <nav><ul><li><a> structure */
@@ -219,40 +221,6 @@ img {
    Desktop: title spans both columns; summary and TOC share the same row;
    content fills the left column below.
    Mobile (overridden below): single column, TOC between summary and content. */
-.page-wrapper {
-  display: grid;
-  grid-template-columns: 1fr 230px; /* was 1fr 160px */
-  grid-template-areas:
-    "title   title"
-    "summary toc"
-    "content toc";
-  column-gap: 1.5rem; /* was 2rem */
-  max-width: 1300px; /* was 1200px */
-  margin: 0 auto;
-}
-
-/* Pages without a table of contents use a single-column layout. */
-.page-wrapper.no-toc {
-  grid-template-columns: 1fr;
-  grid-template-areas:
-    "title"
-    "summary"
-    "content";
-}
-
-.article-title {
-  grid-area: title;
-}
-
-.article-summary {
-  grid-area: summary;
-}
-
-.content {
-  grid-area: content;
-  min-width: 0; /* prevent overflow inside the grid cell */
-}
-
 /*--------------------------*/
 
 @media (prefers-color-scheme: dark) {
