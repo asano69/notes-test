@@ -78,7 +78,7 @@ body.sidebar-collapsed .layout {
 
 body.sidebar-collapsed .sidebar-title,
 body.sidebar-collapsed #section-search,
-body.sidebar-collapsed nav {
+body.sidebar-collapsed .sidebar nav {
   display: none;
 }
 
