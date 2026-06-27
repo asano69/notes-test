@@ -216,13 +216,6 @@ img {
   margin-inline: auto;
 }
 
-/*--------------------------*/
-/* Article page: grid layout.
-   Desktop: title spans both columns; summary and TOC share the same row;
-   content fills the left column below.
-   Mobile (overridden below): single column, TOC between summary and content. */
-/*--------------------------*/
-
 @media (prefers-color-scheme: dark) {
   html {
     filter: invert(1) hue-rotate(180deg);
@@ -233,61 +226,5 @@ img {
   video,
   iframe {
     filter: invert(1) hue-rotate(180deg);
-  }
-}
-
-/*--------------------------*/
-/* Desktop: collapsed sidebar shrinks to zero */
-
-@media (min-width: 768px) {
-  body.sidebar-collapsed {
-    grid-template-columns: 0 1fr;
-  }
-
-  body.sidebar-collapsed .sidebar {
-    overflow: hidden;
-  }
-}
-
-/*--------------------------*/
-/* Mobile: sidebar becomes a fixed overlay */
-
-@media (max-width: 767px) {
-  body {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "header"
-      "main";
-  }
-
-  main {
-    margin: 0 4% 4%;
-  }
-
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 240px;
-    height: 100vh;
-    max-height: 100vh;
-    z-index: 100;
-    transform: translateX(-100%);
-    transition: transform 0.2s ease;
-  }
-
-  body.sidebar-mobile-open .sidebar {
-    transform: translateX(0);
-  }
-
-  /* Single column: title -> summary -> TOC -> content */
-  .page-wrapper,
-  .page-wrapper.no-toc {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "title"
-      "summary"
-      "toc"
-      "content";
   }
 }
