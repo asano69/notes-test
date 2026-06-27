@@ -1,28 +1,33 @@
 {{ define "main" }}
-<div class="post-list">
-  <h1>{{ .Title }}</h1>
-  {{- $pages := .RegularPages }}
-  <ul class="card-list">
-    {{- range $pages }}
-    <li class="card">
-
-      <div class="card-meta">
-        <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
-          {{ .Date.Format "2006-01-02" }}
-        </time>
-        <div class="card-tags">
-          {{- range .Params.tags }}
-          <a class="tag" href="{{ ($.Site.GetPage (printf "/tags/%s" .)).Permalink }}">{{ . }}</a>
+  <div class="post-list">
+    <h1>{{ .Title }}</h1>
+    {{ .Summary }}
+    {{- $pages := .RegularPages }}
+    <ul class="card-list">
+      {{- range $pages }}
+        <li class="card">
+          <div class="card-meta">
+            <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+              {{ .Date.Format "2006-01-02" }}
+            </time>
+            <div class="card-tags">
+              {{- range .Params.tags }}
+                <a
+                  class="tag"
+                  href="{{ ($.Site.GetPage (printf "/tags/%s" .)).Permalink }}"
+                  >{{ . }}</a
+                >
+              {{- end }}
+            </div>
+          </div>
+          <h2 class="card-title">
+            <a href="{{ .Permalink }}">{{ .Title }}</a>
+          </h2>
+          {{- with .Params.summary }}
+            <p class="card-summary">{{ . }}</p>
           {{- end }}
-        </div>
-      </div>
-      <h2 class="card-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
-      {{- with .Params.summary }}
-      <p class="card-summary">{{ . }}</p>
+        </li>
       {{- end }}
-    </li>
-    {{- end }}
-  </ul>
-</div>
+    </ul>
+  </div>
 {{ end }}
-

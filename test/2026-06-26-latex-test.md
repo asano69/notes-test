@@ -1,6 +1,6 @@
 ---
 title: "latex-test"
-summary: ""
+summary: "これはlatexのテストです！"
 tags: []
 draft: 
 date: 2026-06-26T15:30:36+09:00

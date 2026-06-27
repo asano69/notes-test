@@ -1,26 +1,33 @@
 {{/* page.htmlからbaseof.htmlに差込み */}}
 {{ define "main" }}
-<div class="page-wrapper">
-  <h1 class="article-title" data-pagefind-weight="10">{{ .Title }}</h1>
-  {{- if or .Params.summary .Params.tags }}
-  <div class="article-summary">
-    {{- with .Params.summary }}
-    <p data-pagefind-weight="5">{{ . }}</p>
+  <div class="page-wrapper">
+    <h1 class="article-title" data-pagefind-weight="10">{{ .Title }}</h1>
+    <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+      {{ .Date.Format "2006-01-02" }}
+    </time>
+    {{- if or .Params.summary .Params.tags }}
+      <div class="article-summary">
+        {{- with .Params.summary }}
+          <p data-pagefind-weight="5">{{ . }}</p>
+        {{- end }}
+        {{- with .Params.tags }}
+          <div class="card-tags">
+            {{- range . }}
+              <a
+                class="tag"
+                href="{{ ($.Site.GetPage (printf "/tags/%s" .)).Permalink }}"
+                >{{ . }}</a
+              >
+            {{- end }}
+          </div>
+        {{- end }}
+      </div>
     {{- end }}
-    {{- with .Params.tags }}
-    <div class="card-tags">
-      {{- range . }}
-      <a class="tag" href="{{ ($.Site.GetPage (printf "/tags/%s" .)).Permalink }}">{{ . }}</a>
-      {{- end }}
-    </div>
-    {{- end }}
+    <article class="content">
+      {{ .Content }}
+      {{ partial "backlinks.html" . }}
+    </article>
   </div>
-  {{- end }}
-  <article class="content">
-    {{ .Content }}
-    {{ partial "backlinks.html" . }}
-  </article>
- </div>
 {{ end }}
 
 {{/* page.htmlからbaseof.htmlに差込み */}}
@@ -28,42 +35,47 @@
   <aside class="toc">{{ partial "toc.html" . }}</aside>
 {{ end }}
 
-
 {{/* --- KaTeX ---
-- KaTeXが必要な記事だけロードされるようにする
+  - KaTeXが必要な記事だけロードされるようにする
 */}}
 {{ define "css" }}
   {{ if .Store.Get "hasKatex" }}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
+    />
   {{ end }}
 {{ end }}
 
-
 {{/* --- Mermaid ---
-- Mermaidが必要な記事だけ、baseof.htmlの「body-js」ブロックに注入する。
-- assets/js/modules/mermaid-init.jsを作成する方法もあるがmain.jsで読まれないものをおくのは奇妙。static/js/init-mermaid に分離するのも手だが、page.htmlにベタ書きするほうがシンプルでると判断した。
+  - Mermaidが必要な記事だけ、baseof.htmlの「body-js」ブロックに注入する。
+  - assets/js/modules/mermaid-init.jsを作成する方法もあるがmain.jsで読まれないものをおくのは奇妙。static/js/init-mermaid に分離するのも手だが、page.htmlにベタ書きするほうがシンプルでると判断した。
 */}}
 {{ define "body-js" }}
   {{ if .Store.Get "hasMermaid" }}
     <script type="module">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
-      mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+      import mermaid from "https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs";
+      mermaid.initialize({ startOnLoad: true, theme: "neutral" });
     </script>
   {{ end }}
 
-{{/* --- KaTeX ---
-- KaTeXが必要な記事だけロードされるようにする
-*/}}
-{{ if .Store.Get "hasKatex" }}
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+  {{/* --- KaTeX ---
+    - KaTeXが必要な記事だけロードされるようにする
+  */}}
+  {{ if .Store.Get "hasKatex" }}
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
       onload="renderMathInElement(document.body, {
         delimiters: [
           {left: '$$', right: '$$', display: true},
           {left: '$',  right: '$',  display: false}
         ]
-      })"></script>
+      })"
+    ></script>
   {{ end }}
 {{ end }}
-
-
