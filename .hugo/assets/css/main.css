@@ -17,6 +17,7 @@ body {
 }
 
 .layout main {
+  min-width: 0; /* Prevent grid blowout from wide content (e.g. code blocks) */
   padding: 3rem;
   background-color: linen;
   border-radius: 3px;
