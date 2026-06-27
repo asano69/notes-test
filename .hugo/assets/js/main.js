@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initSidebarToggle(); //カプセル化
   document.addEventListener("click", (e) => {
     if (e.target.matches(".copy-btn")) handleCopyCode(e.target);
+    handleSidebarToggle(e.target);
     // Add future button handlers here
   });
 

@@ -27,6 +27,7 @@
 
 {{- $style := slice
   (resources.Get "css/main.css")
+  (resources.Get "css/sidebar.css")
   (resources.Get "css/callout.css")
   | resources.Concat "css/bundle.css"
   | minify

@@ -1,0 +1,97 @@
+.sidebar {
+  font-size: 1.1rem;
+  position: sticky;
+  top: 1rem; /* Offset from the top while the page scrolls */
+  align-self: start; /* Override the default stretch behavior of grid items */
+  max-height: calc(100vh - 2rem); /* leave room for the top offset */
+  overflow-y: auto;
+  & a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    padding: 0.5rem 0.8rem;
+    border-radius: 0.5rem;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.07);
+      color: #111;
+    }
+  }
+
+  #section-search {
+    display: block;
+    box-sizing: border-box;
+    padding: 0.6rem 1rem;
+    margin: 0.75rem auto;
+    max-width: 90%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    background: transparent;
+    color: inherit;
+  }
+
+  & ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  & li + li {
+    margin-top: 0.4rem;
+  }
+}
+
+/* sidebar-header----------------*/
+
+.sidebar-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5rem;
+}
+
+#sidebar-toggle {
+  display: inline-flex;
+  background: none;
+  border: none;
+  padding: 0.4rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  color: inherit;
+}
+
+#sidebar-toggle:hover {
+  background-color: rgba(0, 0, 0, 0.07);
+}
+
+#sidebar-toggle svg {
+  stroke: currentColor; /* override the icon's hardcoded white stroke */
+}
+
+/* Collapsed state: shrink the sidebar column to an icon-only ribbon */
+body.sidebar-collapsed .layout {
+  grid-template-columns: 60px 15fr 5fr;
+}
+
+body.sidebar-collapsed .sidebar-title,
+body.sidebar-collapsed #section-search,
+body.sidebar-collapsed nav {
+  display: none;
+}
+
+body.sidebar-collapsed .sidebar-header {
+  justify-content: center;
+}
+
+/*----------*/
+
+.sidebar-title {
+  display: block;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}

@@ -16,60 +16,6 @@ body {
   margin-top: 1.5rem;
 }
 
-.sidebar {
-  font-size: 1.1rem;
-  position: sticky;
-  top: 1rem; /* Offset from the top while the page scrolls */
-  align-self: start; /* Override the default stretch behavior of grid items */
-  max-height: calc(100vh - 2rem); /* leave room for the top offset */
-  overflow-y: auto;
-  & a {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    padding: 0.5rem 0.8rem;
-    border-radius: 0.5rem;
-    transition:
-      background-color 0.15s ease,
-      color 0.15s ease;
-
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.07);
-      color: #111;
-    }
-  }
-
-  #section-search {
-    display: block;
-    box-sizing: border-box;
-    padding: 0.6rem 1rem;
-    margin: 0.75rem auto;
-    max-width: 90%;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1.1rem;
-    background: transparent;
-    color: inherit;
-  }
-
-  & ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  & li + li {
-    margin-top: 0.4rem;
-  }
-}
-.sidebar-title {
-  display: block;
-  text-align: center;
-  font-size: 1.5rem;
-  font-weight: 800;
-  margin-bottom: 1rem;
-}
-
 .layout main {
   padding: 3rem;
   background-color: linen;

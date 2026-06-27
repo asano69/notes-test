@@ -1,6 +1,19 @@
 {{/* sidebar.html, called from baseof.html */}}
 
 
+<div class="sidebar-header">
+  <button
+    id="sidebar-toggle"
+    type="button"
+    aria-label="Toggle sidebar"
+    aria-expanded="true"
+  >
+    {{- with resources.Get "icons/panel-left.svg" }}
+      {{ .Content | safeHTML }}
+    {{- end }}
+  </button>
+</div>
+
 <div class="sidebar-title">
   <a href="{{ .Site.BaseURL }}">
     {{- with resources.Get "icons/library.svg" }}
